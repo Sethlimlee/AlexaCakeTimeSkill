@@ -38,7 +38,8 @@ const HasBirthdayLaunchRequestHandler = {
             && day;
     },
     handle(handlerInput) {
-
+        
+        const serviceClientFactory = handlerInput.serviceClientFactory;
         const deviceId = handlerInput.requestEnvelope.context.System.device.deviceId;
         const attributesManager = handlerInput.attributesManager;
         const sessionAttributes = attributesManager.getSessionAttributes() || {};
@@ -195,8 +196,5 @@ exports.handler = Alexa.SkillBuilders.custom()
     .addErrorHandlers(
         ErrorHandler)
     .lambda();
-   
-    
-    
     
     
