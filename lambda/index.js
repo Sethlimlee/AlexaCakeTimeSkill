@@ -37,7 +37,7 @@ const HasBirthdayLaunchRequestHandler = {
 
             && day;
     },
-    handle(handlerInput) {
+    async handle(handlerInput) {
         
         const serviceClientFactory = handlerInput.serviceClientFactory;
         const deviceId = handlerInput.requestEnvelope.context.System.device.deviceId;
@@ -47,6 +47,20 @@ const HasBirthdayLaunchRequestHandler = {
         const year = sessionAttributes.hasOwnProperty('year') ? sessionAttributes.year : 0;
         const month = sessionAttributes.hasOwnProperty('month') ? sessionAttributes.month : 0;
         const day = sessionAttributes.hasOwnProperty('day') ? sessionAttributes.day : 0;
+        let userTimeZone;
+
+try {
+    const upsServiceClient = serviceClientFactory.getUpsServiceClient();
+    userTimeZone = await upsServiceClient.getSystemTimeZone(deviceId);
+} catch (error) {
+
+    if (error.name !== 'ServiceError') {
+        return handlerInput.responseBuilder.speak("There was a problem connecting to the service.").getResponse();
+    }
+    console.log('error', error.message);
+}
+        
+        
 
         // TODO:: Use the settings API to get current date and then compute how many days until user's birthday
         // TODO:: Say Happy birthday on the user's birthday
