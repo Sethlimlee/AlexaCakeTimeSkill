@@ -23,10 +23,18 @@ const CaptureBirthdayIntentHandler = {
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
             && handlerInput.requestEnvelope.request.intent.name === 'CaptureBirthdayIntent';
     },
-    handle(handlerInput) {
+    async handle(handlerInput) {
         const year = handlerInput.requestEnvelope.request.intent.slots.year.value;
         const month = handlerInput.requestEnvelope.request.intent.slots.month.value;
         const day = handlerInput.requestEnvelope.request.intent.slots.day.value;
+        const attributesManager = handlerInput.attributesManager;
+        const birthdayAttributes = {
+            "year" : year,
+            "month" : month,
+            "day" : day
+        };
+        attributesManager.setPersistentAttributes(birthdayAttributes);
+        await attributesManager.savePersistentAttributes();    
         
         const speakOutput = `Thanks, I'll remember that you were born ${month} ${day} ${year}.`;
         return handlerInput.responseBuilder
