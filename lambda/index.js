@@ -78,7 +78,15 @@ const HasBirthdayLaunchRequestHandler = {
         if (currentDate.getTime() > nextBirthday) {
              nextBirthday = Date.parse(`${month} ${day}, ${currentYear + 1}`);
         }
-        const speakOutput = `Welcome back. It looks like there are X more days until your y-th birthday.`;
+        const oneDay = 24*60*60*1000;
+
+        // setting the default speakOutput to Happy xth Birthday!
+        // Don't worry about when to use st, th, rd--Alexa will automatically correct the ordinal for you.
+        let speakOutput = `Happy ${currentYear - year}th birthday!`;
+        if (currentDate.getTime() !== nextBirthday) {
+            const diffDays = Math.round(Math.abs((currentDate.getTime() - nextBirthday)/oneDay));
+            speakOutput = `Welcome back. It looks like there are ${diffDays} days until your ${currentYear - year}th birthday.`
+        }
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
