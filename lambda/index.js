@@ -17,10 +17,13 @@ const LaunchRequestHandler = {
             .getResponse();
     }
 };
-const HelloWorldIntentHandler = {
+const CaptureBirthdayIntentHandler = {
     canHandle(handlerInput) {
+        const year = handlerInput.requestEnvelope.request.intent.slots.year.value;
+const month = handlerInput.requestEnvelope.request.intent.slots.month.value;
+const day = handlerInput.requestEnvelope.request.intent.slots.day.value;
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            && handlerInput.requestEnvelope.request.intent.name === 'HelloWorldIntent';
+            && handlerInput.requestEnvelope.request.intent.name === 'CaptureBirthdayIntent';
     },
     handle(handlerInput) {
         const speakOutput = 'Hello World!';
