@@ -49,16 +49,17 @@ const HasBirthdayLaunchRequestHandler = {
         const day = sessionAttributes.hasOwnProperty('day') ? sessionAttributes.day : 0;
         let userTimeZone;
 
-try {
-    const upsServiceClient = serviceClientFactory.getUpsServiceClient();
-    userTimeZone = await upsServiceClient.getSystemTimeZone(deviceId);
-} catch (error) {
+        try {
+            const upsServiceClient = serviceClientFactory.getUpsServiceClient();
+            userTimeZone = await upsServiceClient.getSystemTimeZone(deviceId);
+        } 
+        catch (error) {
 
-    if (error.name !== 'ServiceError') {
-        return handlerInput.responseBuilder.speak("There was a problem connecting to the service.").getResponse();
-    }
-    console.log('error', error.message);
-}
+            if (error.name !== 'ServiceError') {
+            return handlerInput.responseBuilder.speak("There was a problem connecting to the service.").getResponse();
+            }
+        console.log('error', error.message);
+        }
         
         
 
