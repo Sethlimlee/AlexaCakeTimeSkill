@@ -19,13 +19,14 @@ const LaunchRequestHandler = {
 };
 const CaptureBirthdayIntentHandler = {
     canHandle(handlerInput) {
-        const year = handlerInput.requestEnvelope.request.intent.slots.year.value;
-const month = handlerInput.requestEnvelope.request.intent.slots.month.value;
-const day = handlerInput.requestEnvelope.request.intent.slots.day.value;
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
             && handlerInput.requestEnvelope.request.intent.name === 'CaptureBirthdayIntent';
     },
     handle(handlerInput) {
+        const year = handlerInput.requestEnvelope.request.intent.slots.year.value;
+        const month = handlerInput.requestEnvelope.request.intent.slots.month.value;
+        const day = handlerInput.requestEnvelope.request.intent.slots.day.value;
+        
         const speakOutput = 'Hello World!';
         return handlerInput.responseBuilder
             .speak(speakOutput)
