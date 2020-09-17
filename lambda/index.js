@@ -8,10 +8,12 @@ const LaunchRequestHandler = {
         return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speakOutput = 'Hello! Welcome to cake time. That was a piece of cake! Bye!';
+        const speakOutput = 'Hello! Welcome to Caketime. What is your birthday?';
+        const repromtText =  'I was born November sixth, two thousand fourteen. When were you born?';
+        
         return handlerInput.responseBuilder
             .speak(speakOutput)
-            //.reprompt(speakOutput)
+            .reprompt(repromtText)
             .getResponse();
     }
 };
